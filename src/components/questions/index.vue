@@ -1,17 +1,26 @@
 <template>
     <div style="margin-bottom: 70px">
-        <div class="cr-van-card" v-for="img in imageList"
-             v-bind:key="img"
-             v-bind:style="{backgroundImage:'url(' + img + ')',
-             backgroundRepeat:'no-repeat',
-             backgroundSize:'100% 100%',
-             height: '220px'}">
-            <van-goods-action-button class="float-btn"
-                    type="warning"
-                    text="查看题目"
-                    @click="viewQuestions"
-            />
-        </div>
+        <b-container>
+            <b-row >
+                <b-col cols="12" lg="4" xl="4" sm="12" md="12"
+                       no-gutters="true"
+                       v-for="img in imageList"
+                       v-bind:key="img"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card"
+                         v-bind:style="{backgroundImage:'url(' + img + ')',
+                        backgroundRepeat:'no-repeat',
+                        backgroundSize:'100% 100%',
+                        'padding-top': '45%'}">
+                        <van-goods-action-button class="float-btn"
+                                                 type="warning"
+                                                 text="查看题目"
+                                                 @click="viewQuestions"
+                        />
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -52,7 +61,7 @@
     }
 
     .float-btn {
-        transform: translate(-100px, 150px);
+        transform: translate(-100px, -30px);
         width: 30%;
         font-size: 20px;
         box-shadow: 0px 0px 10px #fff;

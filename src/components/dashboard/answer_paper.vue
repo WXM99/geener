@@ -9,24 +9,33 @@
                 <van-count-down :time="time" format="剩余时间：mm:ss" style="width: 60%"></van-count-down>
             </template>
         </van-nav-bar>
-        <div class="cr-van-card" v-for="(qs,index) in questionList" v-bind:key="qs.questionId">
-            <van-divider dashed>第{{index+1}}题: {{qs.questionName}}</van-divider>
-            <div class="cr-desc">
-                {{qs.questionContent}}
-            </div>
-            <van-divider dashed>样例</van-divider>
-            <div class="cr-sample" v-html="qs.questionSample"></div>
-            <van-divider dashed>作答区</van-divider>
-            <van-field
-                    v-model="qs.answer"
-                    rows="5"
-                    autosize
-                    label="答案"
-                    type="textarea"
-                    placeholder="请输入回答"
-                    show-word-limit
-            />
-        </div>
+        <b-container>
+            <b-row>
+                <b-col cols="12" lg="6" xl="6" sm="12" md="12"
+                       no-gutters="true"
+                       v-for="(qs,index) in questionList" v-bind:key="qs.questionId"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card">
+                        <van-divider dashed>第{{index+1}}题: {{qs.questionName}}</van-divider>
+                        <div class="cr-desc">
+                            {{qs.questionContent}}
+                        </div>
+                        <van-divider dashed>样例</van-divider>
+                        <div class="cr-sample" v-html="qs.questionSample"></div>
+                        <van-divider dashed>作答区</van-divider>
+                        <van-field
+                                v-model="qs.answer"
+                                rows="5"
+                                autosize
+                                label="答案"
+                                type="textarea"
+                                placeholder="请输入回答"
+                                show-word-limit
+                        />
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
         <van-button round type="info"
                     @click="ansPaper"
                     color="linear-gradient(to right, #4bb0ff, #6149f6)"

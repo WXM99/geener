@@ -6,29 +6,38 @@
                      fixed placeholder
                      @click-left="returnBack"
         />
-        <div class="cr-van-card" v-for="paper in paperList" v-bind:key="paper.paperId">
-            <van-panel :title="paper.companyName + '测试题目'">
-                <div class="paper-prop">
-                    完成时间: {{paper.finishTime}}min <br>
-                    提交截止时间: {{paper.deadline}} <br>
-                    题目数量: {{paper.questionAmt}} <br>
-                    题目类型: {{paper.type}} <br>
-                </div>
-                <van-divider dashed></van-divider>
-            </van-panel>
-            <van-goods-action-button class="ans-btn"
-                    type="warning"
-                    text="开始答题"
-                    v-if="canBeAns"
-                    @click="ansPaper(paper.paperId)"
-            />
-            <van-goods-action-button class="ans-btn"
-                                     type="warning"
-                                     text="查看答卷"
-                                     v-else
-                                     @click="reviewPaper(paper.paperId)"
-            />
-        </div>
+        <b-container>
+            <b-row>
+                <b-col cols="12" lg="4" xl="4" sm="12" md="12"
+                       no-gutters="true"
+                       v-for="paper in paperList" v-bind:key="paper.paperId"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card">
+                        <van-panel :title="paper.companyName + '测试题目'">
+                            <div class="paper-prop">
+                                完成时间: {{paper.finishTime}}min <br>
+                                提交截止时间: {{paper.deadline}} <br>
+                                题目数量: {{paper.questionAmt}} <br>
+                                题目类型: {{paper.type}} <br>
+                            </div>
+                            <van-divider dashed></van-divider>
+                        </van-panel>
+                        <van-goods-action-button class="ans-btn"
+                                                 type="warning"
+                                                 text="开始答题"
+                                                 v-if="canBeAns"
+                                                 @click="ansPaper(paper.paperId)"
+                        />
+                        <van-goods-action-button class="ans-btn"
+                                                 type="warning"
+                                                 text="查看答卷"
+                                                 v-else
+                                                 @click="reviewPaper(paper.paperId)"
+                        />
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -87,10 +96,10 @@
                 this.$router.go(-1);
             },
             ansPaper(id) {
-                this.$router.push({path: '/ans_paper/'+id})
+                this.$router.push({path: '/ans_paper/' + id})
             },
             reviewPaper(id) {
-                this.$router.push({path: '/view_paper/'+id})
+                this.$router.push({path: '/view_paper/' + id})
             }
         }
     };
@@ -103,6 +112,7 @@
         font-size: 18px;
         font-weight: 400;
     }
+
     .paper-prop {
         text-align: left;
         font-size: 12px;
@@ -111,6 +121,7 @@
         margin-left: 20px;
         margin-top: 20px;
     }
+
     .van-nav-bar .van-icon {
         color: rgb(134, 134, 134);
     }

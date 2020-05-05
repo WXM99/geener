@@ -10,28 +10,37 @@
                 </van-row>
             </template>
         </van-nav-bar>
-        <div class="cr-van-card" v-for="(qs,index) in questionList" v-bind:key="qs.questionId">
-            <van-divider dashed>第{{index+1}}题: {{qs.questionName}}</van-divider>
-            <div class="cr-desc">
-                {{qs.questionContent}}
-            </div>
-            <van-divider dashed>样例</van-divider>
-            <div class="cr-sample" v-html="qs.questionSample"></div>
-            <van-divider dashed>我的答案</van-divider>
-            <div class="cr-desc">
-                {{qs.answer}}
-            </div>
-            <div v-if="qs.reviewed">
-                <van-divider dashed>评论</van-divider>
-                <div class="cr-desc">
-                    {{qs.comments}}
-                </div>
-                <van-divider dashed>得分</van-divider>
-                <van-rate v-model="qs.score"/>
-                <van-divider dashed></van-divider>
-            </div>
-            <van-divider dashed v-else>该题目未审阅</van-divider>
-        </div>
+        <b-container>
+            <b-row>
+                <b-col cols="12" lg="6" xl="6" sm="12" md="12"
+                       no-gutters="true"
+                       v-for="(qs,index) in questionList" v-bind:key="qs.questionId"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card">
+                        <van-divider dashed>第{{index+1}}题: {{qs.questionName}}</van-divider>
+                        <div class="cr-desc">
+                            {{qs.questionContent}}
+                        </div>
+                        <van-divider dashed>样例</van-divider>
+                        <div class="cr-sample" v-html="qs.questionSample"></div>
+                        <van-divider dashed>我的答案</van-divider>
+                        <div class="cr-desc">
+                            {{qs.answer}}
+                        </div>
+                        <div v-if="qs.reviewed">
+                            <van-divider dashed>评论</van-divider>
+                            <div class="cr-desc">
+                                {{qs.comments}}
+                            </div>
+                            <van-divider dashed>得分</van-divider>
+                            <van-rate v-model="qs.score"/>
+                            <van-divider dashed></van-divider>
+                        </div>
+                        <van-divider dashed v-else>该题目未审阅</van-divider>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 <script>

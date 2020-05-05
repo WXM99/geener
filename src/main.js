@@ -6,11 +6,16 @@ import axios from '../node_modules/axios'
 import 'vant/lib/index.css';
 import Vant,{Lazyload} from 'vant';
 import { Toast } from 'vant';
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 /* UI lib enabled */
 Vue.use(Vant);
 Vue.use(Lazyload);
 Vue.use(Toast);
+Vue.use(BootstrapVue);
+
 
 /* axios default settings */
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
