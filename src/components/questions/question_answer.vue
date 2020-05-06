@@ -6,42 +6,55 @@
                      fixed placeholder
                      @click-left="returnBack"
         />
-        <div class="cr-van-card">
-            <van-divider dashed>题目描述</van-divider>
-            <div class="cr-desc">
-                {{this.questionContent}}
-            </div>
-            <van-divider dashed>样例</van-divider>
-            <div class="cr-sample" v-html="questionSample">
-            </div>
-        </div>
-        <div class="cr-van-card">
-            <van-divider dashed>评论区</van-divider>
-            <van-field name="rate" label="质量评分">
-                <template #input>
-                    <van-rate v-model="rating"/>
-                </template>
-            </van-field>
-            <van-field name="rate" label="难度评分">
-                <template #input>
-                    <van-rate v-model="difficulty"/>
-                </template>
-            </van-field>
-            <van-field
-                    v-model="comment"
-                    rows="3"
-                    autosize
-                    label="评论"
-                    type="textarea"
-                    maxlength="100"
-                    placeholder="请输入留言"
-                    show-word-limit
-            />
-            <van-button round type="info"
-                        @click="submitCmt(questionId)"
-                        color="linear-gradient(to right, #4bb0ff, #6149f6)"
-                        style="font-size: 20px; margin: 10px">提交评论</van-button>
-        </div>
+        <b-container>
+            <b-row>
+                <b-col cols="12" lg="6" xl="6" sm="12" md="12"
+                       no-gutters="true"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card">
+                        <van-divider dashed>题目描述</van-divider>
+                        <div class="cr-desc">
+                            {{this.questionContent}}
+                        </div>
+                        <van-divider dashed>样例</van-divider>
+                        <div class="cr-sample" v-html="questionSample">
+                        </div>
+                    </div>
+                </b-col>
+                <b-col cols="12" lg="6" xl="6" sm="12" md="12"
+                       no-gutters="true"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card">
+                        <van-divider dashed>评论区</van-divider>
+                        <van-field name="rate" label="质量评分">
+                            <template #input>
+                                <van-rate v-model="rating"/>
+                            </template>
+                        </van-field>
+                        <van-field name="rate" label="难度评分">
+                            <template #input>
+                                <van-rate v-model="difficulty"/>
+                            </template>
+                        </van-field>
+                        <van-field
+                                v-model="comment"
+                                rows="3"
+                                autosize
+                                label="评论"
+                                type="textarea"
+                                maxlength="100"
+                                placeholder="请输入留言"
+                                show-word-limit
+                        />
+                        <van-button round type="info"
+                                    @click="submitCmt(questionId)"
+                                    color="linear-gradient(to right, #4bb0ff, #6149f6)"
+                                    style="font-size: 20px; margin: 10px">提交评论
+                        </van-button>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -66,7 +79,7 @@
             returnBack() {
                 this.$router.go(-1);
             },
-            submitCmt (id) {
+            submitCmt(id) {
                 console.log(id);
                 this.$toast.success('评论成功！');
             }

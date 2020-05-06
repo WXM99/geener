@@ -14,7 +14,7 @@
                 <b-col cols="12" lg="6" xl="6" sm="12" md="12"
                        no-gutters="true"
                        v-for="(qs,index) in questionList" v-bind:key="qs.questionId"
-                       v-bind:style="{'padding': '0px'}">
+                       v-bind:style="{'padding': '0px', 'margin': '0px'}">
                     <div class="cr-van-card">
                         <van-divider dashed>第{{index+1}}题: {{qs.questionName}}</van-divider>
                         <div class="cr-desc">

@@ -1,60 +1,76 @@
 <template>
     <div style="margin-bottom: 70px">
-        <div class="cr-van-card">
-            <van-row>
-                <van-col span="8">
-                    <div class="avatar-box"
-                         v-bind:style="{backgroundImage:'url(' + avatar + ')',
+        <b-container>
+            <b-row>
+                <b-col cols="12" lg="6" xl="6" sm="12" md="12"
+                       no-gutters="true"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card">
+                        <van-row>
+                            <van-col span="8">
+                                <div class="avatar-box"
+                                     v-bind:style="{backgroundImage:'url(' + avatar + ')',
              backgroundRepeat:'no-repeat',
              backgroundSize:'100% 100%'}">
+                                </div>
+                            </van-col>
+                            <van-col span="16">
+                                <van-panel :title="username" :desc="email">
+                                    <div>{{skills}}</div>
+                                </van-panel>
+                            </van-col>
+                        </van-row>
                     </div>
-                </van-col>
-                <van-col span="16">
-                    <van-panel :title="username" :desc="email">
-                        <div>{{skills}}</div>
-                    </van-panel>
-                </van-col>
-            </van-row>
-        </div>
-        <div class="cr-van-card">
-            <van-divider dashed>待办事项</van-divider>
-            <van-cell value="查看" is-link to="/paper_list/waiting">
-                <template #title>
-                    <span class="custom-title">待做试题</span>
-                    <van-tag color="#f2826a" plain>{{waitingQs}}</van-tag>
-                </template>
-            </van-cell>
-            <van-cell value="查看" is-link to="/paper_list/submitted">
-                <template #title>
-                    <span class="custom-title">已提交试题</span>
-                    <van-tag color="#f2826a" plain>{{submitQs}}</van-tag>
-                </template>
-            </van-cell>
-            <van-cell value="查看" is-link to="/paper_list/reviewed">
-                <template #title>
-                    <span class="custom-title">已审阅试题</span>
-                    <van-tag color="#f2826a" plain>{{reviewedQs}}</van-tag>
-                </template>
-            </van-cell>
-        </div>
-        <div class="cr-van-card">
-            <van-divider dashed>历史记录</van-divider>
-            <van-cell value="查看" is-link>
-                <template #title>
-                    <span class="custom-title">做题记录</span>
-                </template>
-            </van-cell>
-            <van-cell value="查看" is-link>
-                <template #title>
-                    <span class="custom-title">评论记录</span>
-                </template>
-            </van-cell>
-            <van-cell value="查看" is-link>
-                <template #title>
-                    <span class="custom-title">浏览记录</span>
-                </template>
-            </van-cell>
-        </div>
+                </b-col>
+                <b-col cols="12" lg="6" xl="6" sm="12" md="12"
+                       no-gutters="true"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card">
+                        <van-divider dashed>待办事项</van-divider>
+                        <van-cell value="查看" is-link to="/paper_list/waiting">
+                            <template #title>
+                                <span class="custom-title">待做试题</span>
+                                <van-tag color="#f2826a" plain>{{waitingQs}}</van-tag>
+                            </template>
+                        </van-cell>
+                        <van-cell value="查看" is-link to="/paper_list/submitted">
+                            <template #title>
+                                <span class="custom-title">已提交试题</span>
+                                <van-tag color="#f2826a" plain>{{submitQs}}</van-tag>
+                            </template>
+                        </van-cell>
+                        <van-cell value="查看" is-link to="/paper_list/reviewed">
+                            <template #title>
+                                <span class="custom-title">已审阅试题</span>
+                                <van-tag color="#f2826a" plain>{{reviewedQs}}</van-tag>
+                            </template>
+                        </van-cell>
+                    </div>
+                </b-col>
+                <b-col cols="12" lg="6" xl="6" sm="12" md="12"
+                       no-gutters="true"
+                       v-bind:style="{'padding': '0px'}">
+                    <div class="cr-van-card">
+                        <van-divider dashed>历史记录</van-divider>
+                        <van-cell value="查看" is-link>
+                            <template #title>
+                                <span class="custom-title">做题记录</span>
+                            </template>
+                        </van-cell>
+                        <van-cell value="查看" is-link>
+                            <template #title>
+                                <span class="custom-title">评论记录</span>
+                            </template>
+                        </van-cell>
+                        <van-cell value="查看" is-link>
+                            <template #title>
+                                <span class="custom-title">浏览记录</span>
+                            </template>
+                        </van-cell>
+                    </div>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -78,7 +94,7 @@
 
 <style scoped>
     .cr-van-card {
-        margin: 20px;
+        margin: 10px;
         box-shadow: 0px 5px 10px #b4b4b4;
         border-radius: 15px;
         overflow: hidden;
@@ -102,15 +118,18 @@
         margin: 20px;
         margin-top: 30px;
     }
+
     .van-tag {
         margin-left: 5px;
         transform: translate(0px, -2px);
     }
+
     .custom-title {
         font-size: 16px;
         text-align: left;
         color: #7f8182;
     }
+
     .van-cell__title {
         text-align: left;
     }

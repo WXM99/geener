@@ -6,12 +6,12 @@
                        no-gutters="true"
                        v-for="img in imageList"
                        v-bind:key="img"
-                       v-bind:style="{'padding': '0px'}">
+                       v-bind:style="{'padding': '0px', 'margin': '0px'}">
                     <div class="cr-van-card"
                          v-bind:style="{backgroundImage:'url(' + img + ')',
                         backgroundRepeat:'no-repeat',
                         backgroundSize:'100% 100%',
-                        'padding-top': '45%'}">
+                        'padding-top': '44%'}">
                         <van-goods-action-button class="float-btn"
                                                  type="warning"
                                                  text="查看题目"
@@ -48,7 +48,7 @@
 
 <style scoped>
     .cr-van-card {
-        margin: 20px;
+        margin: 10px;
         box-shadow: 0px 5px 10px #b4b4b4;
         border-radius: 15px;
         overflow: hidden;
