@@ -12,12 +12,10 @@
                        no-gutters="true"
                        v-bind:style="{'padding': '0px'}">
                     <div class="cr-van-card">
-                        <van-divider dashed>题目描述</van-divider>
+                        <img :src="this.imageList[this.questionId]" style="width: 100%">
+                        <van-divider dashed>Events Description</van-divider>
                         <div class="cr-desc">
                             {{this.questionContent}}
-                        </div>
-                        <van-divider dashed>样例</van-divider>
-                        <div class="cr-sample" v-html="questionSample">
                         </div>
                     </div>
                 </b-col>
@@ -25,13 +23,13 @@
                        no-gutters="true"
                        v-bind:style="{'padding': '0px'}">
                     <div class="cr-van-card">
-                        <van-divider dashed>评论区</van-divider>
-                        <van-field name="rate" label="质量评分">
+                        <van-divider dashed>Feedback</van-divider>
+                        <van-field name="rate" label="Rates">
                             <template #input>
                                 <van-rate v-model="rating"/>
                             </template>
                         </van-field>
-                        <van-field name="rate" label="难度评分">
+                        <van-field name="rate" label="Likes">
                             <template #input>
                                 <van-rate v-model="difficulty"/>
                             </template>
@@ -40,16 +38,16 @@
                                 v-model="comment"
                                 rows="3"
                                 autosize
-                                label="评论"
+                                label="Comments"
                                 type="textarea"
                                 maxlength="100"
-                                placeholder="请输入留言"
+                                placeholder="..."
                                 show-word-limit
                         />
                         <van-button round type="info"
                                     @click="submitCmt(questionId)"
-                                    color="linear-gradient(to right, #4bb0ff, #6149f6)"
-                                    style="font-size: 20px; margin: 10px">提交评论
+                                    color="#8ba38d"
+                                    style="font-size: 20px; margin: 10px">Submit
                         </van-button>
                     </div>
                 </b-col>
@@ -62,8 +60,16 @@
     export default {
         data() {
             return {
+              imageList: [
+                require("@/assets/ds-hash.png"),
+                require("@/assets/ds-queue.png"),
+                require("@/assets/ml.png"),
+                require("@/assets/ag-rec.png"),
+                require("@/assets/ds-array.png"),
+                require("@/assets/ds-bst.png")
+              ],
                 questionId: this.$route.params.id,
-                questionName: "题目：" + this.$route.params.id,
+                questionName: "Events " + this.$route.params.id,
                 questionContent: "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list." +
                     "You may assume the two numbers do not contain any leading zero, except the number 0 itself.\n",
                 questionSample:
@@ -88,9 +94,6 @@
 </script>
 
 <style scoped>
-    .van-nav-bar.van-hairline--bottom {
-        height: 50px;
-    }
 
     .van-nav-bar__title.van-ellipsis {
         font-size: 20px;
@@ -111,12 +114,6 @@
         font-weight: 200;
     }
 
-    .cr-van-card {
-        margin: 20px;
-        box-shadow: 0px 5px 10px #b4b4b4;
-        border-radius: 15px;
-        overflow: hidden;
-    }
 
     .cr-desc {
         margin: 10px;

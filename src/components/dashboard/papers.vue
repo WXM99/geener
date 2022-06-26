@@ -3,7 +3,6 @@
         <van-nav-bar class="cr-topbar"
                      :title="title"
                      left-arrow
-                     fixed placeholder
                      @click-left="returnBack"
         />
         <b-container>
@@ -62,18 +61,7 @@
             };
         },
         mounted() {
-            var pageName = "";
-            var pageType = this.$route.params.type;
-            if (pageType === "waiting") {
-                pageName = "待做试题";
-                this.canBeAns = true
-            } else if (pageType === "submitted") {
-                pageName = "已提交试题"
-            } else {
-                pageName = "已审阅试题"
-            }
-
-            this.title = pageName;
+            this.title = this.$route.params.type;
             this.paperList.push({
                 companyName: "Morgan Stanley",
                 type: "Java & Algorithm",
@@ -130,12 +118,5 @@
         text-align: left;
         font-size: 18px;
         font-weight: 200;
-    }
-
-    .cr-van-card {
-        margin: 20px;
-        box-shadow: 0px 5px 10px #b4b4b4;
-        border-radius: 15px;
-        overflow: hidden;
     }
 </style>

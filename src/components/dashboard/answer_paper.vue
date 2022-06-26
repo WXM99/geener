@@ -108,13 +108,6 @@
         font-weight: 200;
     }
 
-    .cr-van-card {
-        margin: 20px;
-        box-shadow: 0px 5px 10px #b4b4b4;
-        border-radius: 15px;
-        overflow: hidden;
-    }
-
     .van-count-down {
         position: fixed;
     }

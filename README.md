@@ -1,4 +1,4 @@
-# code-rank
+# Greener
 
 ## Project setup
 ```

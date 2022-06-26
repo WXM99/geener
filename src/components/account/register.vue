@@ -27,19 +27,19 @@
                v-bind:style="{'padding': '0px'}">
           <div class="cr-van-card">
             <van-divider dashed>Events</van-divider>
-            <van-cell value="more" is-link to="/events/list">
+            <van-cell value="more" is-link to="/paper_list/waiting">
               <template #title>
                 <span class="custom-title">liked</span>
                 <van-tag color="#f2826a" plain>{{ waitingQs }}</van-tag>
               </template>
             </van-cell>
-            <van-cell value="more" is-link to="/events/list">
+            <van-cell value="more" is-link to="/paper_list/submitted">
               <template #title>
                 <span class="custom-title">matched</span>
                 <van-tag color="#f2826a" plain>{{ submitQs }}</van-tag>
               </template>
             </van-cell>
-            <van-cell value="more" is-link to="/events/list">
+            <van-cell value="more" is-link to="/paper_list/reviewed">
               <template #title>
                 <span class="custom-title">participated</span>
                 <van-tag color="#f2826a" plain>{{ reviewedQs }}</van-tag>
@@ -69,15 +69,6 @@
             </van-cell>
           </div>
         </b-col>
-        <b-col cols="12" lg="12" xl="12" sm="12" md="12"
-               no-gutters="true"
-               v-bind:style="{'padding': '0px'}">
-          <div class="cr-van-card">
-            <van-button block color="#8ba38d" @click="logOut">
-              Log Out
-            </van-button>
-          </div>
-        </b-col>
       </b-row>
     </b-container>
   </div>
@@ -85,8 +76,6 @@
 
 
 <script>
-import router from "@/router";
-
 export default {
   data() {
     return {
@@ -98,11 +87,6 @@ export default {
       submitQs: 1,
       reviewedQs: 0
     };
-  },
-  methods: {
-    logOut() {
-      router.push("/login")
-    }
   }
 };
 </script>
