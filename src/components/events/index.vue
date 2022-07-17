@@ -9,21 +9,49 @@
           @load="onLoad"
       >
         <b-row>
-          <b-col v-for="(item, key) in eventList" v-bind:key="key" cols="12" lg="4" md="12"
+          <b-col cols="6" lg="6" md="6"
                  no-gutters="true"
-                 sm="12"
-                 v-bind:style="{'padding': '0px', 'margin': '0px'}"
-                 xl="4">
-            <div class="cr-van-card">
-              <img :src="item.imgUrl" style="width: 100%">
-              <van-goods-action-button class="float-btn"
-                                       text="More"
-                                       color="#8ba38d"
-                                       type="primary"
-                                       @click="viewQuestions(item.id)"
-              />
-              <div style="margin-top: 15px">Event{{item.name}} - {{item.desc}}</div>
-            </div>
+                 sm="6">
+            <b-row>
+              <b-col v-for="(item, key) in eventList" v-bind:key="key" cols="12" lg="6" md="12"
+                     no-gutters="true"
+                     sm="12"
+                     v-bind:style="{'padding': '0px', 'margin': '0px'}"
+                     xl="6">
+                <div class="cr-van-card">
+                  <img :src="item.imgUrl" style="width: 100%">
+                  <van-goods-action-button class="float-btn"
+                                           color="#8ba38d"
+                                           text="More"
+                                           type="primary"
+                                           @click="viewQuestions(item.id)"
+                  />
+                  <div style="margin-top: 15px">Event{{ item.name }} - {{ item.desc }}</div>
+                </div>
+              </b-col>
+            </b-row>
+          </b-col>
+          <b-col cols="6" lg="6" md="6"
+                 no-gutters="true"
+                 sm="6">
+            <b-row>
+              <b-col v-for="(item, key) in eventList2" v-bind:key="key" cols="12" lg="6" md="12"
+                     no-gutters="true"
+                     sm="12"
+                     v-bind:style="{'padding': '0px', 'margin': '0px'}"
+                     xl="6">
+                <div class="cr-van-card">
+                  <img :src="item.imgUrl" style="width: 100%">
+                  <van-goods-action-button class="float-btn"
+                                           color="#8ba38d"
+                                           text="More"
+                                           type="primary"
+                                           @click="viewQuestions(item.id)"
+                  />
+                  <div style="margin-top: 15px">Event{{ item.name }} - {{ item.desc }}</div>
+                </div>
+              </b-col>
+            </b-row>
           </b-col>
         </b-row>
       </van-list>
@@ -44,24 +72,27 @@ export default {
         require("@/assets/ds-bst.png")
       ],
       eventList: [],
+      eventList2: [],
       loading: false,
       finished: false,
     };
   },
   methods: {
     viewQuestions(id) {
-      this.$router.push({path: '/events/view/'+id});
+      this.$router.push({path: '/events/view/' + id});
     },
     onLoad() {
       setTimeout(() => {
-        for (let i = 0; i < 5; i++) {
-          this.eventList.push({
+        for (let i = 0; i < 6; i++) {
+          let event = {
             "name": this.eventList.length + 1,
             "rating": this.eventList.length % 5 + 1,
             "id": this.eventList.length % 6,
             "desc": "Events details",
             "imgUrl": this.imageList[this.eventList.length % 6]
-          });
+          }
+          if (i % 2 === 0) this.eventList.push(event);
+          else this.eventList2.push(event)
         }
         this.loading = false;
         if (this.eventList.length >= 20) {
