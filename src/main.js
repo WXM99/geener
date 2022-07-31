@@ -22,8 +22,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 axios.defaults.withCredentials = true; // ajax with coockie
 Vue.prototype.$axios = axios;
 Vue.prototype.$ajax = axios;
-// todo: change `axios.defaults.baseURL` when dispatch or integrate testing
-axios.defaults.baseURL = 'http://localhost:8080';
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+axios.defaults.withCredentials = false;
+
+axios.defaults.baseURL = 'https://fcd54591.us-south.apigw.appdomain.cloud';
 Vue.config.productionTip = false;
 
 /* vuex storage settings */

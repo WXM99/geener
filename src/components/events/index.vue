@@ -20,13 +20,12 @@
                      xl="6">
                 <div class="cr-van-card">
                   <img :src="item.imgUrl" style="width: 100%">
-                  <van-goods-action-button class="float-btn"
-                                           color="#8ba38d"
-                                           text="More"
-                                           type="primary"
-                                           @click="viewQuestions(item.id)"
+                  <div>{{ item.name }}</div>
+                  <p class="event-desc">{{ item.desc }}</p>
+                  <van-button block color="#8ba38d"
+                              text="More"
+                              @click="viewQuestions(item.id)"
                   />
-                  <div style="margin-top: 15px">Event{{ item.name }} - {{ item.desc }}</div>
                 </div>
               </b-col>
             </b-row>
@@ -42,13 +41,11 @@
                      xl="6">
                 <div class="cr-van-card">
                   <img :src="item.imgUrl" style="width: 100%">
-                  <van-goods-action-button class="float-btn"
-                                           color="#8ba38d"
-                                           text="More"
-                                           type="primary"
-                                           @click="viewQuestions(item.id)"
+                  <div>Event{{ item.name }} <br> {{ item.desc }}</div>
+                  <van-button block color="#8ba38d"
+                              text="More"
+                              @click="viewQuestions(item.id)"
                   />
-                  <div style="margin-top: 15px">Event{{ item.name }} - {{ item.desc }}</div>
                 </div>
               </b-col>
             </b-row>
@@ -82,24 +79,42 @@ export default {
       this.$router.push({path: '/events/view/' + id});
     },
     onLoad() {
-      setTimeout(() => {
-        for (let i = 0; i < 6; i++) {
-          let event = {
-            "name": this.eventList.length + 1,
-            "rating": this.eventList.length % 5 + 1,
-            "id": this.eventList.length % 6,
-            "desc": "Events details",
+      this.$axios({
+        method: 'get',
+        url: '/get-recommendation',
+        withCredentials: false
+      }).then(response => {
+        let events = response.data.recommendations
+        for (let idx in events) {
+          let e = events[idx]
+          let front_event = {
+            "name": e.name,
+            "rating": e.score * 5,
+            "id": e._id,
+            "desc": e.details,
+            "date": e.date,
+            "time": e.time,
+            "host": e.host,
+            "location": e.location,
             "imgUrl": this.imageList[this.eventList.length % 6]
           }
-          if (i % 2 === 0) this.eventList.push(event);
-          else this.eventList2.push(event)
+          console.log(front_event)
+          this.eventList.push(front_event)
+        }
+        this.imageList.reverse()
+        for (let i = 0; i < 10; i++) {
+          this.eventList2.push({
+            "name": this.eventList2.length % 6,
+            "rating": this.eventList2.length % 5 + 1,
+            "id": this.eventList2.length % 6,
+            "desc": "Events details",
+            "imgUrl": this.imageList[this.eventList2.length % 6]
+          });
         }
         this.loading = false;
-        if (this.eventList.length >= 20) {
-          this.finished = true;
-        }
-      }, 1000);
-    }
+        this.finished = true;
+      })
+    },
   }
 };
 </script>
@@ -111,9 +126,17 @@ export default {
   display: block;
 }
 
+.event-desc {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 5px;
+  font-size: 12px;
+}
+
 .float-btn {
   width: 30%;
-  font-size: 20px;
+  font-size: 15px;
   float: left;
   margin: 5px;
 }
