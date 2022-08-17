@@ -41,7 +41,8 @@
                      xl="6">
                 <div class="cr-van-card">
                   <img :src="item.imgUrl" style="width: 100%">
-                  <div>Event{{ item.name }} <br> {{ item.desc }}</div>
+                  <div>{{ item.name }}</div>
+                  <p class="event-desc">{{ item.desc }}</p>
                   <van-button block color="#8ba38d"
                               text="More"
                               @click="viewQuestions(item.id)"
@@ -80,8 +81,11 @@ export default {
     },
     onLoad() {
       this.$axios({
-        method: 'get',
+        method: 'post',
         url: '/get-recommendation',
+        data: {
+          "numEvent": 10
+        },
         withCredentials: false
       }).then(response => {
         let events = response.data.recommendations
@@ -99,22 +103,21 @@ export default {
             "imgUrl": this.imageList[this.eventList.length % 6]
           }
           console.log(front_event)
-          this.eventList.push(front_event)
+          if (idx % 2 === 0) {
+            this.eventList.push(front_event)
+          } else {
+            this.eventList2.push(front_event)
+          }
         }
-        this.imageList.reverse()
-        for (let i = 0; i < 10; i++) {
-          this.eventList2.push({
-            "name": this.eventList2.length % 6,
-            "rating": this.eventList2.length % 5 + 1,
-            "id": this.eventList2.length % 6,
-            "desc": "Events details",
-            "imgUrl": this.imageList[this.eventList2.length % 6]
-          });
+        console.log(this.eventList, this.eventList2)
+        if (this.eventList.length > 10) {
+          this.loading = false;
+          this.finished = true;
+        } else {
+          this.onLoad()
         }
-        this.loading = false;
-        this.finished = true;
       })
-    },
+    }
   }
 };
 </script>
