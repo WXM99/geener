@@ -86,6 +86,7 @@
 
 <script>
 import router from "@/router";
+import store from "../../main";
 
 export default {
   data() {
@@ -99,8 +100,16 @@ export default {
       reviewedQs: 0
     };
   },
+  mounted() {
+    if (!store.login) {
+      router.push("/login")
+    } else {
+      this.username = store.username
+    }
+  },
   methods: {
     logOut() {
+      store.login = false
       router.push("/login")
     }
   }

@@ -26,16 +26,21 @@ Vue.prototype.$ajax = axios;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.withCredentials = false;
 
-axios.defaults.baseURL = 'https://fcd54591.us-south.apigw.appdomain.cloud';
+axios.defaults.baseURL = 'https://us-south.functions.appdomain.cloud/api/v1/web/6715ac50-fa50-4b71-bde4-975607b56165/';
 Vue.config.productionTip = false;
 
 /* vuex storage settings */
 Vue.use(Vuex);
-
+const store = {
+  login: false,
+  username: ""
+}
+export default store
 
 new Vue({
   render: h => h(App),
   router,
   axios,
+  store,
   components: { App }
 }).$mount('#app');

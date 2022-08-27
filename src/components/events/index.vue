@@ -58,6 +58,8 @@
 </template>
 
 <script>
+import store from "../../main";
+import router from "@/router";
 export default {
   data() {
     return {
@@ -73,7 +75,15 @@ export default {
       eventList2: [],
       loading: false,
       finished: false,
+      username: ""
     };
+  },
+  mounted() {
+    if (!store.login) {
+      router.push("/login")
+    } else {
+      this.username = store.username
+    }
   },
   methods: {
     viewQuestions(id) {
@@ -82,9 +92,11 @@ export default {
     onLoad() {
       this.$axios({
         method: 'post',
-        url: '/get-recommendation',
+        url: '/greener-ml/get-event-recommendation',
         data: {
-          "numEvent": 10
+          "userid": this.username,
+          "numEvent": 10,
+          "offset": 0
         },
         withCredentials: false
       }).then(response => {
@@ -102,14 +114,12 @@ export default {
             "location": e.location,
             "imgUrl": this.imageList[this.eventList.length % 6]
           }
-          console.log(front_event)
           if (idx % 2 === 0) {
             this.eventList.push(front_event)
           } else {
             this.eventList2.push(front_event)
           }
         }
-        console.log(this.eventList, this.eventList2)
         if (this.eventList.length > 10) {
           this.loading = false;
           this.finished = true;

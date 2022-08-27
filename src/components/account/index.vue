@@ -10,7 +10,7 @@
              backgroundRepeat:'no-repeat',
              backgroundSize:'100% 100%'}">
           </div>
-      <van-form @submit="onSubmit">
+      <van-form>
         <van-cell-group inset>
           <van-field
               v-model="username"
@@ -31,14 +31,14 @@
         <b-row v-bind:style="{margin: 0}">
           <b-col cols="6" lg="6" md="6" no-gutters="true" sm="6">
             <div style="margin: 6px;">
-              <van-button block color="#8ba38d" round>
+              <van-button block color="#8ba38d" round  @click="onSubmit">
                 Log In
               </van-button>
             </div>
           </b-col>
           <b-col cols="6" lg="6" md="6" no-gutters="true" sm="6">
             <div style="margin: 6px;">
-              <van-button block round>
+              <van-button block round @click="onRegistration">
                 Sign Up
               </van-button>
             </div>
@@ -52,21 +52,66 @@
 
 <script>
 import router from "@/router";
+import store from "../../main"
 
 export default {
   data() {
     return {
       bgImg: require("@/assets/bg.jpg"),
       logo: require("@/assets/logo.png"),
-      username: 'XiaomiaoW',
-      email: 'Xiaomiao.W@hotmail.com',
-      password: 'I like Greener App!',
+      username: '',
+      email: '',
+      password: '',
     };
+  },
+  mounted() {
+    store.login = false
+    console.log(store)
   },
   methods: {
     onSubmit() {
       console.log(this.username, this.password)
-      router.push("/")
+      this.$toast("Loading...")
+      this.$axios({
+        method: 'post',
+        url: '/default/user-login-sequence',
+        data: {
+          "username": this.username,
+          "password": this.password
+        },
+        withCredentials: false
+      }).then(response => {
+        console.log(response)
+        if (response.data.message === "Login successful") {
+          this.$toast.success("Welcome! " + this.username)
+          store.login = true
+          store.username = this.username
+          router.push("/")
+        } else {
+          this.$toast.fail(response.data.message)
+        }
+      })
+    },
+    onRegistration() {
+      console.log(this.username, this.password)
+      this.$toast("Loading...")
+      this.$axios({
+        method: 'post',
+        url: '/default/user-registration-sequence',
+        data: {
+          "username": this.username,
+          "password": this.password
+        },
+        withCredentials: false
+      }).then(response => {
+        console.log(response)
+        if (response.data.success !== undefined) {
+          this.$toast.success(this.username + " registered successfully");
+          router.push("/login")
+        } else {
+          this.$toast.fail(response.data.message)
+        }
+      })
     }
   }
 };
