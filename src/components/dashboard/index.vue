@@ -92,8 +92,8 @@ export default {
   data() {
     return {
       avatar: require("@/assets/avatar.png"),
-      username: 'XiaomiaoW',
-      email: 'Xiaomiao.W@hotmail.com',
+      username: '',
+      email: '',
       skills: 'I like Greener App!',
       waitingQs: 2,
       submitQs: 1,
@@ -105,6 +105,7 @@ export default {
       router.push("/login")
     } else {
       this.username = store.username
+      this.email = store.username + "@greener.com"
     }
   },
   methods: {

@@ -100,6 +100,7 @@ export default {
         },
         withCredentials: false
       }).then(response => {
+        console.log(response)
         let events = response.data.recommendations
         for (let idx in events) {
           let e = events[idx]
@@ -112,7 +113,7 @@ export default {
             "time": e.time,
             "host": e.host,
             "location": e.location,
-            "imgUrl": this.imageList[this.eventList.length % 6]
+            "imgUrl": e.imgPath
           }
           if (idx % 2 === 0) {
             this.eventList.push(front_event)
