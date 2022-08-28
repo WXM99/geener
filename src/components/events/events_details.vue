@@ -17,6 +17,12 @@
             <div class="cr-desc">
               {{ this.questionContent }}
             </div>
+            <p>Location: {{this.location}}</p>
+            <p>Host: {{this.host}}</p>
+            <p>Link: <a :href="this.link">click</a></p>
+            <p>Recommendation Count: {{this.recommendCount}}</p>
+            <p>People Responded: {{this.pplResp}}</p>
+            <p>Tags: <span v-for="(item, key) in tags" v-bind:key="key" > {{item}} </span></p>
           </div>
         </b-col>
         <b-col cols="12" lg="6" xl="6" sm="12" md="12"
@@ -69,7 +75,13 @@ export default {
       rating: 0,
       difficulty: 0,
       comment: '',
-      imgUrl: []
+      imgUrl: [],
+      link: "",
+      host: "",
+      location: "",
+      recommendCount: 0,
+      pplResp: "",
+      tags: []
     }
   },
   mounted() {
@@ -86,6 +98,17 @@ export default {
       this.questionName = response.data.name
       this.questionContent = response.data.details
       this.imgUrl = [response.data.imgPath]
+      this.location = response.data.location
+      this.link = response.data.link
+      this.host = response.data.host
+      this.recommendCount = response.data.recommendCount
+      this.pplResp = response.data.numPeopleResponded
+      for (let i in response.data.attributes) {
+        let item = response.data.attributes[i]
+        if (item === 1) {
+          this.tags.push(i)
+        }
+      }
     })
   },
   methods: {
