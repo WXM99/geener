@@ -20,13 +20,12 @@
                      xl="6">
                 <div class="cr-van-card">
                   <img :src="item.imgUrl" style="width: 100%">
-                  <van-goods-action-button class="float-btn"
-                                           color="#8ba38d"
-                                           text="More"
-                                           type="primary"
-                                           @click="viewQuestions(item.id)"
+                  <div>Event{{ item.name *2 - 1}}</div>
+                  <p class="event-desc">{{ item.desc }}</p>
+                  <van-button block color="#8ba38d"
+                              text="More"
+                              @click="viewQuestions(item.id)"
                   />
-                  <div style="margin-top: 15px">Event{{ item.name }} - {{ item.desc }}</div>
                 </div>
               </b-col>
             </b-row>
@@ -42,13 +41,12 @@
                      xl="6">
                 <div class="cr-van-card">
                   <img :src="item.imgUrl" style="width: 100%">
-                  <van-goods-action-button class="float-btn"
-                                           color="#8ba38d"
-                                           text="More"
-                                           type="primary"
-                                           @click="viewQuestions(item.id)"
+                  <div>Event{{ item.name *2 - 2}}</div>
+                  <p class="event-desc">{{ item.desc }}</p>
+                  <van-button block color="#8ba38d"
+                              text="More"
+                              @click="viewQuestions(item.id)"
                   />
-                  <div style="margin-top: 15px">Event{{ item.name }} - {{ item.desc }}</div>
                 </div>
               </b-col>
             </b-row>
@@ -95,7 +93,7 @@ export default {
           else this.eventList2.push(event)
         }
         this.loading = false;
-        if (this.eventList.length >= 20) {
+        if (this.eventList.length >= 40) {
           this.finished = true;
         }
       }, 1000);
@@ -110,10 +108,16 @@ export default {
   min-height: 100%;
   display: block;
 }
-
+.event-desc {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 5px;
+  font-size: 12px;
+}
 .float-btn {
   width: 30%;
-  font-size: 20px;
+  font-size: 15px;
   float: left;
   margin: 5px;
 }
