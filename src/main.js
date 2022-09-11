@@ -28,11 +28,16 @@ Vue.config.productionTip = false;
 
 /* vuex storage settings */
 Vue.use(Vuex);
-
+const store = {
+  login: false,
+  username: ""
+}
+export default store
 
 new Vue({
   render: h => h(App),
   router,
   axios,
+  store,
   components: { App }
 }).$mount('#app');

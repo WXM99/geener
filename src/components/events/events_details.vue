@@ -1,7 +1,7 @@
 <template>
     <div style="margin-bottom: 70px">
         <van-nav-bar class="cr-topbar"
-                     :title="questionName"
+                     :title="this.testData.name"
                      left-arrow
                      fixed placeholder
                      @click-left="returnBack"
@@ -15,7 +15,7 @@
                         <img :src="this.imageList[this.questionId]" style="width: 100%">
                         <van-divider dashed>Events Description</van-divider>
                         <div class="cr-desc">
-                            {{this.questionContent}}
+                            {{this.testData.desc}}
                         </div>
                     </div>
                 </b-col>
@@ -60,6 +60,18 @@
     export default {
         data() {
             return {
+              testData: {
+                name: "TMF Operation Legacy – United Food Bank",
+                desc: "Join TMF Phoenix Chapter, and the Character Does Matter Mentorship program for a service project in Mesa. Participants will build emergency food bags or sort food drive donations into boxes.\n" +
+                    "What To Wear: Closed-toed shoes and appropriate attire for a warehouse.\n" +
+                    "This is a family-friendly event, and volunteers can be as young as five years old with a parent or guardian.\n" +
+                    "All volunteers are expected to adhere to local and federal COVID safety precautions.\n" +
+                    "Please only sign up if you are sure you can attend this event. Due to this coinciding with the Character Does Matter for the children attending that mentorship program this summer, we have limited registration. We currently have 15 adult and 25 children slots open for attendees of the CDM Mentorship Program. The last two weeks before the event, volunteer slots may open for additional volunteers, and we will announce on FB if more become available.\n" +
+                    "If you sign up and you can no longer attend, please email phoenix.chapter@travismanion.com so that the spot can be opened to another member.\n" +
+                    "REGISTER LINK: https://www.travismanion.org/.../mesa-az-back-to-school.../\n" +
+                    "This project will honor the life and legacy of Army Sgt. Aaron B. Cruttenden.\n" +
+                    "See less"
+              },
               imageList: [
                 require("@/assets/ds-hash.png"),
                 require("@/assets/ds-queue.png"),
@@ -87,7 +99,7 @@
             },
             submitCmt(id) {
                 console.log(id);
-                this.$toast.success('评论成功！');
+                this.$toast.success('Comment successfully!');
             }
         }
     }

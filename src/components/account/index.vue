@@ -52,21 +52,24 @@
 
 <script>
 import router from "@/router";
-
+import store from "../../main";
 export default {
   data() {
     return {
       bgImg: require("@/assets/bg.jpg"),
       logo: require("@/assets/logo.png"),
-      username: 'XiaomiaoW',
-      email: 'Xiaomiao.W@hotmail.com',
-      password: 'I like Greener App!',
+      username: '',
+      email: '',
+      password: '',
     };
   },
   methods: {
     onSubmit() {
       console.log(this.username, this.password)
-      router.push("/")
+      this.$toast.success('Welcome ' + this.username)
+      store.login = true
+      store.username = this.username
+      router.push("/events")
     }
   }
 };

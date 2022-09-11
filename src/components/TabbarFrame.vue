@@ -31,8 +31,7 @@
     </van-popup>
     <van-tabbar route active-color="#afbc90" inactive-color="#7f8182">
       <van-tabbar-item replace icon="add-o" @click="showPopup">New</van-tabbar-item>
-      <van-tabbar-item replace to="/events" icon="fire-o">Trending</van-tabbar-item>
-      <van-tabbar-item replace to="/matching" icon="star-o">Match</van-tabbar-item>
+      <van-tabbar-item replace to="/events" icon="fire-o">Match</van-tabbar-item>
       <van-tabbar-item replace to="/" icon="user-circle-o">Me</van-tabbar-item>
     </van-tabbar>
   </div>

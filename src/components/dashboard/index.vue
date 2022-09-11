@@ -17,7 +17,8 @@
               <van-col span="16">
                 <van-panel :title="username" :desc="email">
                   <div>{{ skills }}</div>
-                </van-panel>
+                  <van-tag color="#8ba38d" closeable plain>community</van-tag>
+                  <van-tag color="#8ba38d" closeable plain>environment</van-tag>                </van-panel>
               </van-col>
             </van-row>
           </div>
@@ -51,22 +52,12 @@
                no-gutters="true"
                v-bind:style="{'padding': '0px'}">
           <div class="cr-van-card">
-            <van-divider dashed>My interest</van-divider>
-            <van-cell value="more" is-link>
-              <template #title>
-                <span class="custom-title">liked</span>
-              </template>
-            </van-cell>
-            <van-cell value="more" is-link>
-              <template #title>
-                <span class="custom-title">viewed</span>
-              </template>
-            </van-cell>
-            <van-cell value="more" is-link>
-              <template #title>
-                <span class="custom-title">matched</span>
-              </template>
-            </van-cell>
+            <van-divider dashed>Add my interest</van-divider>
+            <van-tag round size="large" color="#8ba38d">community</van-tag>
+            <van-tag round size="large" color="#8ba38d">environment</van-tag>
+            <van-tag round size="large" color="#8ba38d">food</van-tag>
+            <van-tag round size="large" color="#8ba38d">physical</van-tag>
+            <van-tag round size="large" color="#8ba38d">virtual</van-tag>
           </div>
         </b-col>
         <b-col cols="12" lg="12" xl="12" sm="12" md="12"
@@ -86,23 +77,29 @@
 
 <script>
 import router from "@/router";
-
+import store from "../../main";
 export default {
   data() {
     return {
       avatar: require("@/assets/avatar.png"),
-      username: 'XiaomiaoW',
-      email: 'Xiaomiao.W@hotmail.com',
+      username: store.username,
+      email: store.username + '@hotmail.com',
       skills: 'I like Greener App!',
       waitingQs: 2,
       submitQs: 1,
-      reviewedQs: 0
+      reviewedQs: 0,
+      interest: []
     };
+  },
+  mounted() {
+    this.username = store.username
+    this.email = store.username + '@hotmail.com'
   },
   methods: {
     logOut() {
       router.push("/login")
-    }
+    },
+    onChange() {}
   }
 };
 </script>
