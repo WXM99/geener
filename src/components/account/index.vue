@@ -69,7 +69,7 @@ export default {
       this.$toast.success('Welcome ' + this.username)
       store.login = true
       store.username = this.username
-      router.push("/events")
+      router.push("/")
     }
   }
 };
