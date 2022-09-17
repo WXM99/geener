@@ -133,7 +133,7 @@ export default {
             "rating": this.eventList.length % 5 + 1,
             "id": this.eventList.length % 6,
             "desc": this.eventDate[i].desc,
-            "imgUrl": this.imageList[this.eventList.length % 6]
+            "imgUrl": this.imageList[Math.floor(Math.random() * 6)]
           }
           if (i % 2 === 0) this.eventList.push(event);
           else this.eventList2.push(event)
@@ -154,6 +154,7 @@ export default {
   min-height: 100%;
   display: block;
 }
+
 .event-desc {
   overflow: hidden;
   white-space: nowrap;
@@ -161,6 +162,7 @@ export default {
   margin: 0 5px;
   font-size: 12px;
 }
+
 .float-btn {
   width: 30%;
   font-size: 15px;
