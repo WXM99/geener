@@ -29,11 +29,6 @@
                                 <van-rate v-model="rating"/>
                             </template>
                         </van-field>
-                        <van-field name="rate" label="Likes">
-                            <template #input>
-                                <van-rate v-model="difficulty"/>
-                            </template>
-                        </van-field>
                         <van-field
                                 v-model="comment"
                                 rows="3"
@@ -49,6 +44,11 @@
                                     color="#8ba38d"
                                     style="font-size: 20px; margin: 10px">Submit
                         </van-button>
+                      <van-button round type="info"
+                                  @click="submitCmt(0)"
+                                  color="#8ba38d"
+                                  style="font-size: 20px; margin: 10px">Like
+                      </van-button>
                     </div>
                 </b-col>
             </b-row>
@@ -99,7 +99,7 @@
             },
             submitCmt(id) {
                 console.log(id);
-                this.$toast.success('Comment successfully!');
+                this.$toast.success('Successfully!');
             }
         }
     }
