@@ -60,6 +60,7 @@
 <script>
 import store from "../../main";
 import router from "@/router";
+
 export default {
   data() {
     return {
@@ -75,6 +76,7 @@ export default {
       eventList2: [],
       loading: false,
       finished: false,
+      maxEventNum: 0,
       username: ""
     };
   },
@@ -90,17 +92,26 @@ export default {
       this.$router.push({path: '/events/view/' + id});
     },
     onLoad() {
+      let num = 10
+      if (this.eventList.length + this.eventList2.length > 0 && this.eventList.length + this.eventList2.length + num > this.maxEventNum) {
+        num = this.maxEventNum - this.eventList.length - this.eventList2.length
+      }
+      console.log(num)
+      console.log(this.username)
+      console.log(this.eventList.length + this.eventList2.length)
       this.$axios({
         method: 'post',
         url: '/greener-ml/get-event-recommendation',
         data: {
           "userid": this.username,
-          "numEvent": 10,
-          "offset": 0
+          "numEvent": num,
+          "offset": this.eventList.length + this.eventList2.length
         },
         withCredentials: false
       }).then(response => {
+        console.log(this.$axios.data)
         console.log(response)
+        this.maxEventNum = response.data.numEvents
         let events = response.data.recommendations
         for (let idx in events) {
           let e = events[idx]
@@ -113,7 +124,7 @@ export default {
             "time": e.time,
             "host": e.host,
             "location": e.location,
-            "imgUrl": e.imgPath
+            "imgUrl": this.imageList[Math.floor(Math.random() * 6)]
           }
           if (idx % 2 === 0) {
             this.eventList.push(front_event)
@@ -121,7 +132,8 @@ export default {
             this.eventList2.push(front_event)
           }
         }
-        if (this.eventList.length > 10) {
+        if (this.eventList.length + this.eventList2.length >= this.maxEventNum) {
+          console.log(this.maxEventNum)
           this.loading = false;
           this.finished = true;
         } else {

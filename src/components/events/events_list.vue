@@ -5,30 +5,32 @@
                  title="Events"
                  @click-left="returnBack"
     />
-    <van-list
-        v-model="loading"
-        :finished="finished"
-        finished-text="No more events"
-        loading-text="Loading..."
-        @load="onLoad"
-    >
-      <van-cell v-for="(item,key) in list"
-                :key="item.id"
-                right-icon
-                size="large"
-                @click="viewQuestion(item.id)">
-        <template #title>
-          Event {{ item.name }}
-        </template>
-        <template #label>
-          {{ item.desc }}
-        </template>
-        <template #right-icon>
-          <span style="font-size: 16px; font-weight: 200">Rating</span>
-          <van-rate v-model="list[key].rating" readonly size="small" style="margin-top: 5px; margin-left: 5px;"/>
-        </template>
-      </van-cell>
-    </van-list>
+    <div style="width: 100%">
+      <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="No more events"
+          loading-text="Loading..."
+          @load="onLoad"
+          style="width: 100%"
+      >
+        <van-cell v-for="(item,key) in list"
+                  :key="item._id"
+                  right-icon
+                  size="large"
+                  @click="viewQuestion(item._id)">
+          <template #title>
+            {{ item.name }}
+          </template>
+          <template #label>
+            <p class="event-desc">{{ item.details }}</p>
+          </template>
+          <template #right-icon>
+            <van-rate v-model="list[key].score" readonly size="small" style="margin-top: 5px; margin-left: 5px;"/>
+          </template>
+        </van-cell>
+      </van-list>
+    </div>
   </div>
 </template>
 
@@ -39,6 +41,7 @@ export default {
       list: [],
       loading: false,
       finished: false,
+      type: this.$route.params.type
     };
   },
   methods: {
@@ -47,25 +50,21 @@ export default {
     },
     onLoad() {
       this.$axios({
-        method: 'get',
-        url: '/get-recommendation',
+        method: 'post',
+        url: '/greener-ml/get-user-details',
+        data: {
+          "id": "tushar"
+        },
         withCredentials: false
       }).then(response => {
-        console.log('DATE\n', response)
-        setTimeout(() => {
-          for (let i = 0; i < 10; i++) {
-            this.list.push({
-              "name": this.list.length % 6,
-              "rating": this.list.length % 5 + 1,
-              "id": this.list.length % 6,
-              "desc": "Events details",
-            });
-          }
-          this.loading = false;
-          if (this.list.length >= 40) {
-            this.finished = true;
-          }
-        }, 1000);
+        console.log(response)
+        let liked = Object.values(response.data.likedEvents)
+        let attend = Object.values(response.data.attendedEvents)
+        if (this.type === "like") {
+          this.list = liked
+        } else this.list = attend
+        this.list.forEach(item => item.score = item.score * 5)
+        this.finished = true;
       })
     },
     viewQuestion(id) {
@@ -74,15 +73,18 @@ export default {
     }
   },
   mounted() {
+    console.log(this.type)
   }
 }
 </script>
 
 <style scoped>
-
 .van-nav-bar__title.van-ellipsis {
   font-size: 20px;
   font-weight: 200;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .van-nav-bar__arrow {
@@ -93,5 +95,17 @@ export default {
   text-align: left;
   font-size: 18px;
   font-weight: 200;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.event-desc {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0 5px;
+  font-size: 12px;
 }
 </style>

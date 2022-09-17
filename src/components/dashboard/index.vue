@@ -27,22 +27,16 @@
                v-bind:style="{'padding': '0px'}">
           <div class="cr-van-card">
             <van-divider dashed>Events</van-divider>
-            <van-cell value="more" is-link to="/events/list">
+            <van-cell value="more" is-link to="/events/list/attend">
               <template #title>
-                <span class="custom-title">liked</span>
+                <span class="custom-title">Attended</span>
                 <van-tag color="#f2826a" plain>{{ waitingQs }}</van-tag>
               </template>
             </van-cell>
-            <van-cell value="more" is-link to="/events/list">
+            <van-cell value="more" is-link to="/events/list/like">
               <template #title>
-                <span class="custom-title">matched</span>
+                <span class="custom-title">Liked</span>
                 <van-tag color="#f2826a" plain>{{ submitQs }}</van-tag>
-              </template>
-            </van-cell>
-            <van-cell value="more" is-link to="/events/list">
-              <template #title>
-                <span class="custom-title">participated</span>
-                <van-tag color="#f2826a" plain>{{ reviewedQs }}</van-tag>
               </template>
             </van-cell>
           </div>
@@ -50,24 +44,6 @@
         <b-col cols="12" lg="6" xl="6" sm="12" md="12"
                no-gutters="true"
                v-bind:style="{'padding': '0px'}">
-          <div class="cr-van-card">
-            <van-divider dashed>My interest</van-divider>
-            <van-cell value="more" is-link>
-              <template #title>
-                <span class="custom-title">liked</span>
-              </template>
-            </van-cell>
-            <van-cell value="more" is-link>
-              <template #title>
-                <span class="custom-title">viewed</span>
-              </template>
-            </van-cell>
-            <van-cell value="more" is-link>
-              <template #title>
-                <span class="custom-title">matched</span>
-              </template>
-            </van-cell>
-          </div>
         </b-col>
         <b-col cols="12" lg="12" xl="12" sm="12" md="12"
                no-gutters="true"
@@ -95,9 +71,8 @@ export default {
       username: '',
       email: '',
       skills: 'I like Greener App!',
-      waitingQs: 2,
-      submitQs: 1,
-      reviewedQs: 0
+      waitingQs: 0,
+      submitQs: 0,
     };
   },
   mounted() {
@@ -106,6 +81,18 @@ export default {
     } else {
       this.username = store.username
       this.email = store.username + "@greener.com"
+      this.$axios({
+        method: 'post',
+        url: '/greener-ml/get-user-details',
+        data: {
+          "id": "tushar"
+        },
+        withCredentials: false
+      }).then(response => {
+        console.log(response.data)
+        this.waitingQs = Object.values(response.data.attendedEvents).length
+        this.submitQs = Object.values(response.data.likedEvents).length
+      })
     }
   },
   methods: {

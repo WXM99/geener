@@ -28,7 +28,7 @@ const router = new Router({
         }, {
             path: 'view_paper/:id', name: 'view_paper', component: loadView('dashboard/review_paper')
         }, {
-            path: 'events/list', name: 'events_list', component: loadView('events/events_list')
+            path: 'events/list/:type', name: 'events_list', component: loadView('events/events_list')
         }, {
             path: 'events/view/:id', name: 'events_details', component: loadView('events/events_details')
         }]
