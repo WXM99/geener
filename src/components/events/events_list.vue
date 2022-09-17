@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import store from "../../main";
 export default {
   data() {
     return {
@@ -53,7 +54,7 @@ export default {
         method: 'post',
         url: '/greener-ml/get-user-details',
         data: {
-          "id": "tushar"
+          "id": store.username
         },
         withCredentials: false
       }).then(response => {
